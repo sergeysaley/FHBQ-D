@@ -8,7 +8,7 @@ from pprint import pprint
 
 start_time = time.time()
 
-s_port = '/dev/ttyUSB0'
+s_port = 'COM6'
 b_rate = 9600
 #open serial
 SRL = serial.Serial(
@@ -82,6 +82,7 @@ def get_dic(data):
         nel = '0'+nel if len(nel) == 1 else nel
         dic.append(nel)
     return dic
+
 
 def HexToByte(hexStr):
     bytes_a = []
@@ -180,7 +181,7 @@ def read_status():
     while True:
         rx = get_dic(read_serial('revise'))
 
-        if (rx[9] == '0a' or rx[9] == '2a' or rx[9] == '4a'   or rx[9] == '07' or rx[9] == '27' or rx[9] == '47'):
+        if (rx[9] == '0e' or rx[9] == '2e' or rx[9] == '4e'):
             status = 'off'
             break
         else:
@@ -219,9 +220,9 @@ def run_com(cm):
                 if rx[9] == 'ae': rx[9] = '2e'
                 if rx[9] == 'ce': rx[9] = '4e'
             else:
-                if (cm[2] == 'auto' and rx[9] == '0e'): rx[9] = '8e'        #'bypass: auto; '
-                if (cm[2] == 'on' and rx[9] == '2e'):   rx[9] = 'ae'        #'bypass: on; '
-                if (cm[2] == 'off' and rx[9] == '4e'):  rx[9] = 'ce'        #'bypass: off; '
+                if (cm[2] == 'auto'): 	rx[9] = '8e'        #'bypass: auto; '
+                if (cm[2] == 'on'):   	rx[9] = 'ae'        #'bypass: on; '
+                if (cm[2] == 'off'):  	rx[9] = 'ce'        #'bypass: off; '
 
                 if (cm[0] == 'n'):
                     rx[13] = '20'
