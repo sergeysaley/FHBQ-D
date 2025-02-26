@@ -1,4 +1,5 @@
-# FHBQ-D
-control of recuperators FHBQ-D* (C&amp;H, Gree, etc)
+# FHBQ-D8-K
+control of recuperator Gree FHBQ-D8-K
 
-wiki https://github.com/sdfim/FHBQ-D/wiki
+Thanks to https://github.com/sdfim/FHBQ-D/wiki
+
