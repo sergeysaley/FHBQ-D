@@ -231,14 +231,14 @@ def read_status():
     while True:
         rx = get_dic(read_serial('revise'))
 
-        if (rx[9] == '0a' or rx[9] == '2a' or rx[9] == '4a'   or rx[9] == '07' or rx[9] == '27' or rx[9] == '47'):
+        if (rx[9] == '0e' or rx[9] == '2e' or rx[9] == '4e'   or rx[9] == '07' or rx[9] == '27' or rx[9] == '47'):
             status = 'off'
             break
         else:
             bypass = 'undefined'
-            if (rx[9] == '8a' or rx[9] == '87'): bypass = 'bypass: auto; '
-            if (rx[9] == 'aa' or rx[9] == 'a7'): bypass = 'bypass: on; '
-            if (rx[9] == 'ca' or rx[9] == 'c7'): bypass = 'bypass: off; '
+            if (rx[9] == '8e' or rx[9] == '87'): bypass = 'bypass: auto; '
+            if (rx[9] == 'ae' or rx[9] == 'a7'): bypass = 'bypass: on; '
+            if (rx[9] == 'ce' or rx[9] == 'c7'): bypass = 'bypass: off; '
             if (rx[13] == '00' or rx[13] == '20'):
                 if rx[10] == '0c': mode = 'mode: normal; speed: 1; '
                 if rx[10] == '12': mode = 'mode: normal; speed: 2; '
@@ -278,23 +278,23 @@ def run_com(cm):
             rx[2] = '00'
             rx[3] = 'a0'
             if cm[0] == 'off': 
-                if rx[9] == '8a': rx[9] = '0a'
-                if rx[9] == 'aa': rx[9] = '2a'
-                if rx[9] == 'ca': rx[9] = '4a'
+                if rx[9] == '8e': rx[9] = '0e'
+                if rx[9] == 'ae': rx[9] = '2e'
+                if rx[9] == 'ce': rx[9] = '4e'
 
                 if rx[9] == '87': rx[9] = '07'
                 if rx[9] == 'a7': rx[9] = '27'
                 if rx[9] == 'c7': rx[9] = '47'
-            elif (cm[0] == 'rhoff' and (rx[9] == '8a' or rx[9] == 'aa' or rx[9] == 'ca')):
+            elif (cm[0] == 'rhoff' and (rx[9] == '8e' or rx[9] == 'ae' or rx[9] == 'ce')):
                 print ('use rhoff')
                 rx[11] = '40'
-            elif (cm[0] == 'rhon' and (rx[9] == '8a' or rx[9] == 'aa' or rx[9] == 'ca')):
+            elif (cm[0] == 'rhon' and (rx[9] == '8e' or rx[9] == 'ae' or rx[9] == 'ce')):
                 print ('use rhon')
                 rx[11] = 'd0'
             else:
-                if (cm[2] == 'auto' and rx[9] == '0a'): rx[9] = '8a'        #'bypass: auto; '
-                if (cm[2] == 'on' and rx[9] == '2a'):   rx[9] = 'aa'        #'bypass: on; '
-                if (cm[2] == 'off' and rx[9] == '4a'):  rx[9] = 'ca'        #'bypass: off; '
+                if (cm[2] == 'auto' and rx[9] == '0e'): rx[9] = '8e'        #'bypass: auto; '
+                if (cm[2] == 'on' and rx[9] == '2e'):   rx[9] = 'ae'        #'bypass: on; '
+                if (cm[2] == 'off' and rx[9] == '4e'):  rx[9] = 'ce'        #'bypass: off; '
                 if (cm[2] == 'auto' and rx[9] == '07'): rx[9] = '87'        #'bypass: auto; '
                 if (cm[2] == 'on' and rx[9] == '27'):   rx[9] = 'a7'        #'bypass: on; '
                 if (cm[2] == 'off' and rx[9] == '47'):  rx[9] = 'c7'        #'bypass: off; '
