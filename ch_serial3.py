@@ -83,7 +83,6 @@ def get_dic(data):
         dic.append(nel)
     return dic
 
-
 def HexToByte(hexStr):
     bytes_a = []
     for i in range(0, len(hexStr), 2):
