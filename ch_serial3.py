@@ -32,16 +32,6 @@ MAX_SEND        = 21
 MAX_TIME_SNIFF  = 180        # s
 MAX_LINE_SNIFF  = 2700       # 1line = 0.067s
 
-class bcolors:
-    HEADER    = '\033[95m'
-    OKBLUE    = '\033[94m'
-    OKGREEN   = '\033[92m'
-    WARNING   = '\033[93m'
-    FAIL      = '\033[91m'
-    ENDC      = '\033[0m'
-    BOLD      = '\033[1m'
-    UNDERLINE = '\033[4m'
-
 # verification and help lists 
 class lists:
     list_helh = [
@@ -171,25 +161,25 @@ def checking_sended(send):
             print ("send  = ", send)
         
         if sum_check_byte == 12: 
-            if PRINT_PREINFO: print (bcolors.OKGREEN + bcolors.BOLD + 'OK' + bcolors.ENDC)
+            if PRINT_PREINFO: print ('OK')
             ch_ret = 'OK'
         else: 
-            if PRINT_PREINFO: print (bcolors.FAIL +  "ERROR: something went wrong" + bcolors.ENDC)
+            if PRINT_PREINFO: print ("ERROR: something went wrong")
             ch_ret = 'ERROR'
         
         if PRINT_CHECK:
-            print (bcolors.WARNING + '                                  bp sp      mode     ' + bcolors.ENDC)
+            print ('                                  bp sp      mode     ')
             j = 2
             str_sended = ''
             str_checking = ''
             str_master = ''
             while j < 16:
                 if j in diff:
-                    str_sended = str_sended + ' ' + bcolors.WARNING + bcolors.BOLD + str(send[j]) + bcolors.ENDC 
+                    str_sended = str_sended + ' ' + str(send[j])
                     if ch_ret == 'OK':
-                        str_checking = str_checking + ' ' + bcolors.OKGREEN + bcolors.BOLD + str(check[j]) + bcolors.ENDC
+                        str_checking = str_checking + ' ' + str(check[j])
                     if ch_ret == 'ERROR':
-                        str_checking = str_checking + ' ' + bcolors.FAIL + bcolors.BOLD + str(check[j]) + bcolors.ENDC 
+                        str_checking = str_checking + ' ' + str(check[j])
                 elif j == 3:
                     str_sended = str_sended + ' ' + str(send[j]) + ' ->'
                     str_checking = str_checking + ' ' + str(check[j]) + ' ->'
@@ -304,7 +294,7 @@ def run_com(cm):
             
         break
         
-    if PRINT_PREINFO:  print (bcolors.WARNING + 'current status: ' + bcolors.ENDC + bcolors.OKBLUE + bcolors.BOLD + read_status() + bcolors.ENDC)
+    if PRINT_PREINFO:  print ('current status: ' + read_status())
     if answer != "OK": print ('ERROR')
     if answer == "OK": print ('DONE')
     sys.exit()
@@ -312,7 +302,7 @@ def run_com(cm):
 def main():
     if len(sys.argv) == 2:
         if sys.argv[1] == 'status':
-            #print (bcolors.OKBLUE + bcolors.BOLD + read_status() + bcolors.ENDC)
+            #print (read_status())
             print (read_status())
             sys.exit()
         if sys.argv[1] == 'sniff_b':
@@ -349,17 +339,17 @@ def main():
                 cm = [sys.argv[1], sys.argv[2]]
                 run_com(cm)
             else:
-                print (bcolors.FAIL + "ERROR: Your command is not valid" + bcolors.ENDC)
+                print ("ERROR: Your command is not valid")
                 sys.exit()
     elif len(sys.argv) == 4:
         cm = [sys.argv[1], sys.argv[2], sys.argv[3]]
         if ''.join(cm) in lists.com_valid:
             run_com(cm)
         else:
-            print (bcolors.FAIL + "ERROR: Your command is not valid, see help" + bcolors.ENDC)
+            print ("ERROR: Your command is not valid, see help")
             sys.exit()
     else:
-        print (bcolors.FAIL + "ERROR: Your command is not valid, see help" + bcolors.ENDC)
+        print ("ERROR: Your command is not valid, see help")
         sys.exit()
 
 main()
